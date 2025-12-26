@@ -1,0 +1,88 @@
+{
+  "name": "glm-usage-monitor",
+  "displayName": "GLM Usage Monitor",
+  "description": "监控 GLM Coding Plan 的使用情况和配额",
+  "version": "1.0.0",
+  "publisher": "zai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zai-coding-plugins/zai-coding-plugins"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "glmUsageMonitor.showDetail",
+        "title": "显示 GLM 使用详情",
+        "category": "GLM Usage Monitor"
+      },
+      {
+        "command": "glmUsageMonitor.refresh",
+        "title": "刷新使用数据",
+        "category": "GLM Usage Monitor"
+      },
+      {
+        "command": "glmUsageMonitor.start",
+        "title": "开始监控",
+        "category": "GLM Usage Monitor"
+      },
+      {
+        "command": "glmUsageMonitor.stop",
+        "title": "停止监控",
+        "category": "GLM Usage Monitor"
+      }
+    ],
+    "configuration": {
+      "title": "GLM Usage Monitor",
+      "properties": {
+        "glmUsageMonitor.authToken": {
+          "type": "string",
+          "default": "",
+          "description": "GLM API Token（从环境变量 ANTHROPIC_AUTH_TOKEN 获取）",
+          "order": 1
+        },
+        "glmUsageMonitor.baseUrl": {
+          "type": "string",
+          "default": "https://api.z.ai/api/anthropic",
+          "description": "GLM API 基础 URL（通常不需要修改，默认使用 Z.ai 平台）",
+          "order": 2
+        },
+        "glmUsageMonitor.pollingInterval.active": {
+          "type": "number",
+          "default": 10,
+          "minimum": 5,
+          "maximum": 60,
+          "description": "活跃时的轮询间隔（秒）",
+          "order": 3
+        },
+        "glmUsageMonitor.pollingInterval.idle": {
+          "type": "number",
+          "default": 30,
+          "minimum": 10,
+          "maximum": 300,
+          "description": "空闲时的轮询间隔（秒）",
+          "order": 4
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0"
+  }
+}
